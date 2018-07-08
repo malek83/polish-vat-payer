@@ -1,5 +1,5 @@
 {
-    "name": "malek83/PolishVatPayer",
+    "name": "malek83/polish-vat-payer",
     "description": "Library using Polish Ministry of Finance WebService to validate if given VAT Number is registered as VAT Tax Payer in Poland",
     "license": "MIT",
     "authors": [
