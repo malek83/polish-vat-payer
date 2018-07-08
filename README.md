@@ -10,7 +10,7 @@ Installation
 This library is available on [Packagist](http://packagist.org/packages/malek83/PolishVatPayer):
 
 ```bash
-$ composer require malek83/PolishVatPayer
+$ composer require malek83/polish-vat-payer
 ```
 
 
