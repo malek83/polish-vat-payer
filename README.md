@@ -33,8 +33,8 @@ There are two easy ways to use this library:
     $PolishVatPayer = new \malek83\PolishVatPayer\PolishVatPayer();
 
     /** @var \malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult $result */
-    $result = $PolishVatPayer->isValid('1234567890');
+    $result = $PolishVatPayer->validate('1234567890');
 
     var_dump($result->isValid()); // gives boolean, true if company is VAT Payer, otherwise false
-    var_dump($result->getVatNumber()) //gives string, the verificated VAT number
+    var_dump($result->getVatNumber()); //gives string, the verificated VAT number
     var_dump($result->getMessage()); //gives string, the human readable message
