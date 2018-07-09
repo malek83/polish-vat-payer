@@ -42,7 +42,7 @@ use malek83\PolishVatPayer\PolishVatPayer;
 $validator = new PolishVatPayer();
 
 /** @var \malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult $result */
-$result = $PolishVatPayer->validate('1234567890');
+$result = $validator->validate('1234567890');
 
 var_dump($result->isValid()); // gives boolean, true if company is VAT Payer, otherwise false
 var_dump($result->getVatNumber()); //gives string, the verificated VAT number
