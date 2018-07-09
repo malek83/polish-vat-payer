@@ -5,6 +5,12 @@ namespace malek83\PolishVatPayer\Client;
 use malek83\PolishVatPayer\Exception\PolishVatPayerException;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 
+/**
+ * Interface must be implemented by all client classes that provides Polish VAT Number web service
+ *
+ * Interface ClientInterface
+ * @package malek83\PolishVatPayer\Client
+ */
 interface ClientInterface
 {
     /**

@@ -2,6 +2,12 @@
 
 namespace malek83\PolishVatPayer\Client\Soap\Response;
 
+/**
+ * Response class to map WSDL type TWynikWeryfikacjiVAT to PHP class
+ *
+ * Class CheckVATNumberResponse
+ * @package malek83\PolishVatPayer\Client\Soap\Response
+ */
 class CheckVATNumberResponse
 {
 

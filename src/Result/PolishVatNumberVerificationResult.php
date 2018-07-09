@@ -2,7 +2,12 @@
 
 namespace malek83\PolishVatPayer\Result;
 
-
+/**
+ * Verification Result object
+ *
+ * Class PolishVatNumberVerificationResult
+ * @package malek83\PolishVatPayer\Result
+ */
 class PolishVatNumberVerificationResult
 {
 

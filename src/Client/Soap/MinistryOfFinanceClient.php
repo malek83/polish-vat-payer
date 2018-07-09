@@ -8,6 +8,12 @@ use malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use SoapFault;
 
+/**
+ * Client for Ministry of Finance Soap WebService
+ *
+ * Class MinistryOfFinanceClient
+ * @package malek83\PolishVatPayer\Client\Soap
+ */
 class MinistryOfFinanceClient implements ClientInterface
 {
 

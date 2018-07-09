@@ -7,6 +7,12 @@ use malek83\PolishVatPayer\PolishVatPayer;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Unit tests for class PolishVatPayer
+ *
+ * Class PolishVatPayerTest
+ * @package malek83\PolishVatPayer\Test\unit
+ */
 class PolishVatPayerTest extends TestCase
 {
 

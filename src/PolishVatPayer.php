@@ -6,6 +6,12 @@ use malek83\PolishVatPayer\Client\ClientInterface;
 use malek83\PolishVatPayer\Client\Soap\MinistryOfFinanceClient;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 
+/**
+ * Library using Polish Ministry of Finance WebService to validate if given VAT Number is registered as VAT Tax Payer in Poland
+ *
+ * Class PolishVatPayer
+ * @package malek83\PolishVatPayer
+ */
 class PolishVatPayer
 {
     /**
@@ -40,7 +46,7 @@ class PolishVatPayer
     }
 
     /**
-     * checks if company with given VAT Number is valid Vat payer in Poland and simply returns boolean as the result
+     * check if company with given VAT Number is valid Vat payer in Poland and simply returns boolean as the result
      *
      * @param string $vatNumber Vat Number to be checked for VAT Tax Registration
      * @return bool result of verification if
@@ -53,7 +59,7 @@ class PolishVatPayer
     }
 
     /**
-     * checks if company with given VAT Number is valid Vat payer in Poland and simply returns full result
+     * check if company with given VAT Number is valid Vat payer in Poland and simply returns full result
      *
      * @param string $vatNumber Vat Number to be checked for VAT Tax Registration
      * @return PolishVatNumberVerificationResult result of the verification
@@ -64,7 +70,7 @@ class PolishVatPayer
     }
 
     /**
-     * Returns and instantiate if necessary object of given class that implements ClientInterface interface.
+     * Return and instantiate if necessary object of given class that implements ClientInterface interface.
      *
      * @return ClientInterface
      */
@@ -77,7 +83,7 @@ class PolishVatPayer
     }
 
     /**
-     * Sanitzes given VAT Number to the requirments of API
+     * Sanitze given VAT Number to the requirments of API
      *
      * @param $vatNumber
      * @return string sanitized Vat Number

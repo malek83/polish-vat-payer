@@ -10,6 +10,13 @@ use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use PHPUnit\Framework\TestCase;
 use SoapClient;
 
+/**
+ * Unit tests for class MinistryOfFinanceClient
+ *
+ * Class MinistryOfFinanceClientTest
+ * @package malek83\PolishVatPayer\Test\unit\Client\Soap
+ *
+ */
 class MinistryOfFinanceClientTest extends TestCase
 {
 
