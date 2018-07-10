@@ -24,7 +24,7 @@ $ composer require malek83/polish-vat-payer
 
 There are two easy ways to use this library:
 
-### to get the boolean result of verication
+### to get the boolean result of verification
 
 ```php
 use malek83\PolishVatPayer\PolishVatPayer;
@@ -33,7 +33,7 @@ $validator = new PolishVatPayer();
 $bool = $validator->isValid('1568255600'); //returns boolean
 ```
 
-### to get the Full Response Object, containg all needed information
+### to get the Full Response Object, containing all needed information
 
 
 ```php

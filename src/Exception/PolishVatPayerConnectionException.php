@@ -18,6 +18,6 @@ namespace malek83\PolishVatPayer\Exception;
  */
 class PolishVatPayerConnectionException extends PolishVatPayerException
 {
-    protected $message = "This sevice is currently unable to handle the request.";
+    protected $message = "This service is currently unable to handle the request.";
     protected $code = 503;
 }

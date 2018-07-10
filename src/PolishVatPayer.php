@@ -90,7 +90,7 @@ class PolishVatPayer
     }
 
     /**
-     * Sanitize given VAT Number to the requirments of API
+     * Sanitize given VAT Number to the requirements of API
      *
      * @param $vatNumber
      * @return string sanitized Vat Number

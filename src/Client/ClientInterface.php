@@ -14,7 +14,7 @@ use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 interface ClientInterface
 {
     /**
-     * Veryfies at Ministry of Finances API if given VAT Number is registered as VAT Tax Payer in Poland
+     * Verify at Ministry of Finances API if given VAT Number is registered as VAT Tax Payer in Poland
      *
      * @param string $vatNumber Polish VAT Number without leading country code
      * @return PolishVatNumberVerificationResult result of VAT Number verification
