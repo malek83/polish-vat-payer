@@ -9,4 +9,4 @@ php:
   - nightly
 
 before_install:
-  - composer install --no-dev --prefer-dist
+  - composer install --prefer-dist
