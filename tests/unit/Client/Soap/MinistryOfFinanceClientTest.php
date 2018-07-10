@@ -30,6 +30,7 @@ class MinistryOfFinanceClientTest extends TestCase
         $this->setExpectedException(PolishVatPayerConnectionException::class);
 
         $soapClientStub = $this->getMockBuilder(SoapClient::class)
+            ->setConstructorArgs([""])
             ->setMethods(['__construct', 'SprawdzNIP'])
             ->getMock();
 
@@ -107,6 +108,7 @@ class MinistryOfFinanceClientTest extends TestCase
             ->willReturn($message);
 
         $soapClientStub = $this->getMockBuilder(SoapClient::class)
+            ->setConstructorArgs([""])
             ->setMethods(['__construct', 'SprawdzNIP'])
             ->getMock();
 
