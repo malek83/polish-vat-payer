@@ -117,7 +117,7 @@ class PolishVatPayerTest extends TestCase
      * @param string $message
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function prepareStubs(string $vatNumber, bool $verificationResult, string $message)
+    protected function prepareStubs($vatNumber, $verificationResult, $message)
     {
         $responseStub = $this->getMockBuilder(PolishVatNumberVerificationResult::class)
             ->setConstructorArgs([

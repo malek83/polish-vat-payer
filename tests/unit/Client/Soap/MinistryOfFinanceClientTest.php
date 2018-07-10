@@ -95,7 +95,7 @@ class MinistryOfFinanceClientTest extends TestCase
      * @param string $message
      * @return \PHPUnit_Framework_MockObject_MockObject
      */
-    protected function prepareStubs(string $vatNumber, string $code, string $message)
+    protected function prepareStubs($vatNumber, $code, $message)
     {
         $responseStub = $this->getMockBuilder(CheckVATNumberResponse::class)
             ->setConstructorArgs([$code, $message])

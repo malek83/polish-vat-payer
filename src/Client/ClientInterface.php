@@ -20,5 +20,5 @@ interface ClientInterface
      * @return PolishVatNumberVerificationResult result of VAT Number verification
      * @throws PolishVatPayerException exception is thrown if something goes wrong
      */
-    public function verify(string $vatNumber);
+    public function verify($vatNumber);
 }

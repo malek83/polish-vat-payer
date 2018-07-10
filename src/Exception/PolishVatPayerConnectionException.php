@@ -13,7 +13,7 @@ namespace malek83\PolishVatPayer\Exception;
  *
  * @param string $message [optional] The Exception message to throw.
  * @param int $code [optional] The Exception code.
- * @param Throwable $previous [optional] The previous throwable used for the exception chaining.
+ * @param \Throwable $previous [optional] The previous throwable used for the exception chaining.
  * @package malek83\PolishVatPayer\Exception
  */
 class PolishVatPayerConnectionException extends PolishVatPayerException

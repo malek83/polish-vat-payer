@@ -21,7 +21,7 @@ class CheckVATNumberResponse
      */
     protected $Komunikat;
 
-    public function __construct(string $code, string $message)
+    public function __construct($code, $message)
     {
         $this->Kod = $code;
         $this->Komunikat = $message;

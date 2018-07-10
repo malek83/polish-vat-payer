@@ -4,6 +4,7 @@ namespace malek83\PolishVatPayer;
 
 use malek83\PolishVatPayer\Client\ClientInterface;
 use malek83\PolishVatPayer\Client\Soap\MinistryOfFinanceClient;
+use malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 
 /**
@@ -35,9 +36,11 @@ class PolishVatPayer
      * check if company with given vat number is polish vat payer
      *
      * @param string $vatNumber
+     * @throws PolishVatPayerConnectionException when there is a problem with the connection
+     *
      * @return PolishVatNumberVerificationResult
      */
-    protected function validateInternal(string $vatNumber)
+    protected function validateInternal($vatNumber)
     {
         /** @var PolishVatNumberVerificationResult $response */
         $response = $this->getClientInstance()->verify(static::sanitizeVatNumber($vatNumber));
@@ -49,9 +52,11 @@ class PolishVatPayer
      * check if company with given VAT Number is valid Vat payer in Poland and simply returns boolean as the result
      *
      * @param string $vatNumber Vat Number to be checked for VAT Tax Registration
-     * @return bool result of verification if
+     * @throws PolishVatPayerConnectionException when there is a problem with the connection
+     *
+     * @return bool result of verification
      */
-    public function isValid(string $vatNumber)
+    public function isValid($vatNumber)
     {
         $result = $this->validateInternal($vatNumber);
 
@@ -62,9 +67,11 @@ class PolishVatPayer
      * check if company with given VAT Number is valid Vat payer in Poland and simply returns full result
      *
      * @param string $vatNumber Vat Number to be checked for VAT Tax Registration
+     * @throws PolishVatPayerConnectionException when there is a problem with the connection
+     *
      * @return PolishVatNumberVerificationResult result of the verification
      */
-    public function validate(string $vatNumber)
+    public function validate($vatNumber)
     {
         return $this->validateInternal($vatNumber);
     }
@@ -83,7 +90,7 @@ class PolishVatPayer
     }
 
     /**
-     * Sanitze given VAT Number to the requirments of API
+     * Sanitize given VAT Number to the requirments of API
      *
      * @param $vatNumber
      * @return string sanitized Vat Number

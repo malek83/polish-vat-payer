@@ -48,7 +48,7 @@ class MinistryOfFinanceClient implements ClientInterface
      * @param array $classMap [optional] Custom Class Map for SoapClient
      * @param \SoapClient [optional] $soapClient Custom SoapClient Object
      */
-    public function __construct(string $wsdl = null, array $classMap = null, \SoapClient $soapClient = null)
+    public function __construct($wsdl = null, array $classMap = null, \SoapClient $soapClient = null)
     {
         if ($wsdl !== null) {
             $this->wsdl = $wsdl;
@@ -66,7 +66,7 @@ class MinistryOfFinanceClient implements ClientInterface
     /*
      * {@inheritDoc}
      */
-    public function verify(string $vatNumber)
+    public function verify($vatNumber)
     {
         try {
             $response = $this->getSoapClient()->SprawdzNIP($vatNumber);
@@ -84,8 +84,9 @@ class MinistryOfFinanceClient implements ClientInterface
      * @param string $vatNumber given VAT Number
      * @param CheckVATNumberResponse $response result received from web service
      * @return PolishVatNumberVerificationResult result of VAT Number verification
+     * @throws PolishVatPayerConnectionException
      */
-    protected function prepareResult(string $vatNumber, CheckVATNumberResponse $response)
+    protected function prepareResult($vatNumber, CheckVATNumberResponse $response)
     {
         switch ($response->getCode()) {
             case static::RESPONSE_IS_VAT_PAYER:

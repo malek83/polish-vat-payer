@@ -30,9 +30,9 @@ class PolishVatNumberVerificationResult
      * PolishVatNumberVerificationResult constructor.
      * @param string $vatNumber Verified VAT Number
      * @param boolean $isValid Result of verification
-     * @param $message Human readable message
+     * @param string $message human readable message
      */
-    public function __construct(string $vatNumber, bool $isValid, string $message)
+    public function __construct($vatNumber, $isValid, $message)
     {
         $this->vatNumber = $vatNumber;
         $this->isValid = $isValid;
