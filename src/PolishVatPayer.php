@@ -8,7 +8,8 @@ use malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
 use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 
 /**
- * Library using Polish Ministry of Finance WebService to validate if given VAT Number is registered as VAT Tax Payer in Poland
+ * Library using Polish Ministry of Finance WebService to validate
+ * if given VAT Number is registered as VAT Tax Payer in Poland
  *
  * Class PolishVatPayer
  * @package malek83\PolishVatPayer

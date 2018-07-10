@@ -52,5 +52,4 @@ class CheckVATNumberResponse
     {
         return $this->Komunikat;
     }
-
 }

@@ -72,7 +72,6 @@ class MinistryOfFinanceClient implements ClientInterface
             $response = $this->getSoapClient()->SprawdzNIP($vatNumber);
 
             return $this->prepareResult($vatNumber, $response);
-
         } catch (SoapFault $exception) {
             throw new PolishVatPayerConnectionException($exception->getMessage(), $exception->getCode(), $exception);
         }
@@ -99,7 +98,6 @@ class MinistryOfFinanceClient implements ClientInterface
                 break;
             default:
                 throw new PolishVatPayerConnectionException();
-
         }
 
         return new PolishVatNumberVerificationResult($vatNumber, $isValid, $response->getMessage());

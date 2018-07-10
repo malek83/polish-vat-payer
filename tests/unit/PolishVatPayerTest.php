@@ -148,5 +148,4 @@ class PolishVatPayerTest extends TestCase
 
         return $clientStub;
     }
-
 }

@@ -10,3 +10,7 @@ php:
 
 before_install:
   - composer install --prefer-dist
+
+script:
+  - vendor/bin/phpunit
+  - vendor/bin/phpcs

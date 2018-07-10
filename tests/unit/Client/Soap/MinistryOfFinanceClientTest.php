@@ -85,7 +85,6 @@ class MinistryOfFinanceClientTest extends TestCase
 
         $this->assertInstanceOf(PolishVatNumberVerificationResult::class, $result);
         $this->assertFalse($result->isValid());
-
     }
 
     /**
@@ -119,5 +118,4 @@ class MinistryOfFinanceClientTest extends TestCase
 
         return $soapClientStub;
     }
-
 }

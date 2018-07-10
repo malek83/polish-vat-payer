@@ -62,5 +62,4 @@ class PolishVatNumberVerificationResult
     {
         return $this->message;
     }
-
 }
