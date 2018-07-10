@@ -27,7 +27,7 @@ class MinistryOfFinanceClientTest extends TestCase
 
     public function testIsServiceUnavailable()
     {
-        $this->expectException(PolishVatPayerConnectionException::class);
+        $this->setExpectedException(PolishVatPayerConnectionException::class);
 
         $soapClientStub = $this->getMockBuilder(SoapClient::class)
             ->setMethods(['__construct', 'SprawdzNIP'])
