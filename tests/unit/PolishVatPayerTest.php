@@ -18,7 +18,10 @@ class PolishVatPayerTest extends TestCase
 
     public function testIsInstantiable()
     {
-        $this->assertInstanceOf(PolishVatPayer::class, new PolishVatPayer());
+        $clientStub = $this->getMockBuilder(ClientInterface::class)
+            ->getMock();
+
+        $this->assertInstanceOf(PolishVatPayer::class, new PolishVatPayer($clientStub));
     }
 
     public function testIsValidReturnsTrueForPolishVatPayer()
