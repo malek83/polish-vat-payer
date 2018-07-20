@@ -24,13 +24,11 @@ class PolishVatPayer
     /**
      * PolishVatPayer constructor.
      *
-     * @param ClientInterface $client [optional] Custom client object that provides VAT Numbers web service
+     * @param ClientInterface $client Client object that provides VAT Numbers web service
      */
-    public function __construct(ClientInterface $client = null)
+    public function __construct(ClientInterface $client)
     {
-        if ($client !== null) {
-            $this->client = $client;
-        }
+        $this->client = $client;
     }
 
     /**
@@ -44,7 +42,7 @@ class PolishVatPayer
     protected function validateInternal($vatNumber)
     {
         /** @var PolishVatNumberVerificationResult $response */
-        $response = $this->getClientInstance()->verify(static::sanitizeVatNumber($vatNumber));
+        $response = $this->client->verify(static::sanitizeVatNumber($vatNumber));
 
         return $response;
     }
@@ -78,19 +76,6 @@ class PolishVatPayer
     }
 
     /**
-     * Return and instantiate if necessary object of given class that implements ClientInterface interface.
-     *
-     * @return ClientInterface
-     */
-    protected function getClientInstance()
-    {
-        if ($this->client === null) {
-            $this->client = new MinistryOfFinanceClient();
-        }
-        return $this->client;
-    }
-
-    /**
      * Sanitize given VAT Number to the requirements of API
      *
      * @param $vatNumber
@@ -99,5 +84,15 @@ class PolishVatPayer
     protected static function sanitizeVatNumber($vatNumber)
     {
         return preg_replace('/[^0-9]/', '', $vatNumber);
+    }
+
+    /**
+     * Returns Provider of Vat Number Verification web service object
+     *
+     * @return ClientInterface
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

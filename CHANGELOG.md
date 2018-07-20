@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.0 - 2018-07-20
+
+* Factory extracted from main validator class (single responsibility principle)
+
 ## 1.0.1 - 2018-07-10
 
 * PHP 5.5 compatibility fixes

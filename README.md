@@ -27,9 +27,12 @@ There are two easy ways to use this library:
 ### to get the boolean result of verification
 
 ```php
+use malek83\PolishVatPayer\Factory\PolishVatPayerFactory;
 use malek83\PolishVatPayer\PolishVatPayer;
 
-$validator = new PolishVatPayer();
+/** @var PolishVatPayer $validator */
+$validator = PolishVatPayerFactory::create();
+
 $bool = $validator->isValid('1568255600'); //returns boolean
 ```
 
@@ -37,9 +40,11 @@ $bool = $validator->isValid('1568255600'); //returns boolean
 
 
 ```php
+use malek83\PolishVatPayer\Factory\PolishVatPayerFactory;
 use malek83\PolishVatPayer\PolishVatPayer;
 
-$validator = new PolishVatPayer();
+/** @var PolishVatPayer $validator */
+$validator = PolishVatPayerFactory::create();
 
 /** @var \malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult $result */
 $result = $validator->validate('1234567890');
