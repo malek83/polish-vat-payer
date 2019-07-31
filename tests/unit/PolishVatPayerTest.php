@@ -1,102 +1,160 @@
 <?php
 
-namespace malek83\PolishVatPayer\Test\unit;
+namespace Malek83\PolishVatPayer\Test\unit;
 
-use malek83\PolishVatPayer\Client\ClientInterface;
-use malek83\PolishVatPayer\PolishVatPayer;
-use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
+use Malek83\PolishVatPayer\Builder\PolishVatPayerBuilder;
+use Malek83\PolishVatPayer\Client\ClientInterface;
+use Malek83\PolishVatPayer\Factory\PolishVatPayerFactory;
+use Malek83\PolishVatPayer\PolishVatPayer;
+use Malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use PHPUnit\Framework\TestCase;
+use Desarrolla2\Cache\Memory;
+use PHPUnit_Framework_MockObject_MockObject;
 
 /**
  * Unit tests for class PolishVatPayer
  *
  * Class PolishVatPayerTest
- * @package malek83\PolishVatPayer\Test\unit
+ * @package Malek83\PolishVatPayer\Test\unit
  */
 class PolishVatPayerTest extends TestCase
 {
+    /**
+     * @var string
+     */
+    protected const MESSAGE_PAYER
+        = 'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT czynny';
 
-    public function testIsInstantiable()
+    /**
+     * @var stringprivate
+     */
+    protected const MESSAGE_RELEASED
+        = 'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT zwolniony';
+
+    /**
+     * @var string
+     */
+    protected const MESSAGE_NOT_REGISTERED
+        = 'Podmiot o podanym identyfikatorze podatkowym NIP nie jest zarejestrowany jako podatnik VAT';
+
+    /**
+     * @return void
+     */
+    public function testIsInstantiable(): void
     {
         $clientStub = $this->getMockBuilder(ClientInterface::class)
             ->getMock();
 
-        $this->assertInstanceOf(PolishVatPayer::class, new PolishVatPayer($clientStub));
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
+        $this->assertInstanceOf(PolishVatPayer::class, $validator);
     }
 
-    public function testIsValidReturnsTrueForPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testIsValidReturnsTrueForPolishVatPayer(): void
     {
-
         $clientStub = $this->prepareStubs(
             '8495468971',
             true,
-            'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT czynny'
+            self::MESSAGE_PAYER
         );
 
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
 
-        $validator = new PolishVatPayer($clientStub);
         $this->assertTrue($validator->isValid('8495468971'));
     }
 
-    public function testIsValidReturnsFalseForExemptedFromVatTax()
+    /**
+     * @return void
+     */
+    public function testIsValidReturnsFalseForExemptedFromVatTax(): void
     {
 
         $clientStub = $this->prepareStubs(
             '3588862712',
             false,
-            'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT zwolniony'
+            self::MESSAGE_RELEASED
         );
 
-        $validator = new PolishVatPayer($clientStub);
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
         $this->assertFalse($validator->isValid('3588862712'));
     }
 
-    public function testIsValidReturnsFalseForNotRegisteredAsPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testIsValidReturnsFalseForNotRegisteredAsPolishVatPayer(): void
     {
         $clientStub = $this->prepareStubs(
             '2472157980',
             false,
-            'Podmiot o podanym identyfikatorze podatkowym NIP nie jest zarejestrowany jako podatnik VAT'
+            self::MESSAGE_NOT_REGISTERED
         );
 
-        $validator = new PolishVatPayer($clientStub);
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
         $this->assertFalse($validator->isValid('2472157980'));
     }
 
-    public function testValidateReturnsTrueForPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testValidateReturnsTrueForPolishVatPayer(): void
     {
 
         $clientStub = $this->prepareStubs(
             '8495468971',
             true,
-            'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT czynny'
+            self::MESSAGE_PAYER
         );
 
 
-        $validator = new PolishVatPayer($clientStub);
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
         $result = $validator->validate('8495468971');
 
         $this->assertInstanceOf(PolishVatNumberVerificationResult::class, $result);
         $this->assertTrue($result->isValid());
     }
 
-    public function testValidateReturnsFalseForExemptedFromVatTax()
+    /**
+     * @return void
+     */
+    public function testValidateReturnsFalseForExemptedFromVatTax(): void
     {
-
         $clientStub = $this->prepareStubs(
             '3588862712',
             false,
-            'Podmiot o podanym identyfikatorze podatkowym NIP jest zarejestrowany jako podatnik VAT zwolniony'
+            self::MESSAGE_RELEASED
         );
 
-        $validator = new PolishVatPayer($clientStub);
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
         $result = $validator->validate('3588862712');
 
         $this->assertInstanceOf(PolishVatNumberVerificationResult::class, $result);
         $this->assertFalse($result->isValid());
     }
 
-    public function testValidateReturnsFalseForNotRegisteredAsPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testValidateReturnsFalseForNotRegisteredAsPolishVatPayer(): void
     {
         $clientStub = $this->prepareStubs(
             '2472157980',
@@ -104,12 +162,50 @@ class PolishVatPayerTest extends TestCase
             'Podmiot o podanym identyfikatorze podatkowym NIP nie jest zarejestrowany jako podatnik VAT'
         );
 
-        $validator = new PolishVatPayer($clientStub);
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
 
         $result = $validator->validate('2472157980');
 
         $this->assertInstanceOf(PolishVatNumberVerificationResult::class, $result);
         $this->assertFalse($result->isValid());
+    }
+
+    public function testGetResponseFromCache(): void
+    {
+        $clientStub = $this->prepareStubs(
+            '8495468971',
+            true,
+            self::MESSAGE_PAYER
+        );
+        $clientStub->expects($this->once())->method('verify');
+
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->setCache(new Memory())
+            ->build();
+
+        $this->assertTrue($validator->isValid('8495468971'));
+        $this->assertTrue($validator->isValid('8495468971'));
+    }
+
+    public function testGetResponseWithoutCache(): void
+    {
+        $clientStub = $this->prepareStubs(
+            '8495468971',
+            true,
+            self::MESSAGE_PAYER
+        );
+        $clientStub->expects($this->exactly(2))->method('verify');
+
+        $validator = PolishVatPayerBuilder::builder()
+            ->setClient($clientStub)
+            ->build();
+
+        $this->assertTrue($validator->isValid('8495468971'));
+        $this->assertTrue($validator->isValid('8495468971'));
     }
 
     /**
@@ -118,32 +214,15 @@ class PolishVatPayerTest extends TestCase
      * @param string $vatNumber
      * @param bool $verificationResult
      * @param string $message
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return ClientInterface
      */
-    protected function prepareStubs($vatNumber, $verificationResult, $message)
+    protected function prepareStubs($vatNumber, $verificationResult, $message): PHPUnit_Framework_MockObject_MockObject
     {
-        $responseStub = $this->getMockBuilder(PolishVatNumberVerificationResult::class)
-            ->setConstructorArgs([
-                $vatNumber,
-                $verificationResult,
-                $message
-            ])
-            ->setMethods(['isValid', 'getMessage', 'getVatNumber'])
-            ->getMock();
-
-        $responseStub
-            ->method('isValid')
-            ->willReturn($verificationResult);
-        $responseStub
-            ->method('getMessage')
-            ->willReturn($message);
-        $responseStub
-            ->method('getVatNumber')
-            ->willReturn($vatNumber);
-
         $clientStub = $this->getMockBuilder(ClientInterface::class)
             ->setMethods(['verify'])
             ->getMock();
+
+        $responseStub = new PolishVatNumberVerificationResult($vatNumber, $verificationResult, $message);
 
         $clientStub->method('verify')
             ->with($this->equalTo($vatNumber))

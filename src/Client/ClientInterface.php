@@ -1,15 +1,15 @@
 <?php
 
-namespace malek83\PolishVatPayer\Client;
+namespace Malek83\PolishVatPayer\Client;
 
-use malek83\PolishVatPayer\Exception\PolishVatPayerException;
-use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
+use Malek83\PolishVatPayer\Exception\PolishVatPayerExceptionInterface;
+use Malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 
 /**
  * Interface must be implemented by all client classes that provides Polish VAT Number web service
  *
  * Interface ClientInterface
- * @package malek83\PolishVatPayer\Client
+ * @package Malek83\PolishVatPayer\Client
  */
 interface ClientInterface
 {
@@ -18,7 +18,7 @@ interface ClientInterface
      *
      * @param string $vatNumber Polish VAT Number without leading country code
      * @return PolishVatNumberVerificationResult result of VAT Number verification
-     * @throws PolishVatPayerException exception is thrown if something goes wrong
+     * @throws PolishVatPayerExceptionInterface exception is thrown if something goes wrong
      */
-    public function verify($vatNumber);
+    public function verify(string $vatNumber);
 }

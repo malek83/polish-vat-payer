@@ -1,16 +1,15 @@
 <?php
 
-namespace malek83\PolishVatPayer\Client\Soap\Response;
+namespace Malek83\PolishVatPayer\Client\Soap\Response;
 
 /**
  * Response class to map WSDL type TWynikWeryfikacjiVAT to PHP class
  *
  * Class CheckVATNumberResponse
- * @package malek83\PolishVatPayer\Client\Soap\Response
+ * @package Malek83\PolishVatPayer\Client\Soap\Response
  */
 class CheckVATNumberResponse
 {
-
     /**
      * @var string;
      */
@@ -21,7 +20,7 @@ class CheckVATNumberResponse
      */
     protected $Komunikat;
 
-    public function __construct($code, $message)
+    public function __construct(string $code, string $message)
     {
         $this->Kod = $code;
         $this->Komunikat = $message;
@@ -30,7 +29,7 @@ class CheckVATNumberResponse
     /**
      * @return string
      */
-    public function getCode()
+    public function getCode(): string
     {
         return $this->Kod;
     }
@@ -38,7 +37,7 @@ class CheckVATNumberResponse
     /**
      * @return string
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->Komunikat;
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace malek83\PolishVatPayer\Test\unit\Client\Soap;
+namespace Malek83\PolishVatPayer\Test\unit\Client\Soap;
 
-use malek83\PolishVatPayer\Client\ClientInterface;
-use malek83\PolishVatPayer\Client\Soap\MinistryOfFinanceClient;
-use malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
-use malek83\PolishVatPayer\Client\Soap\Response\CheckVATNumberResponse;
-use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
+use Malek83\PolishVatPayer\Client\ClientInterface;
+use Malek83\PolishVatPayer\Client\Soap\MinistryOfFinanceClient;
+use Malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
+use Malek83\PolishVatPayer\Client\Soap\Response\CheckVATNumberResponse;
+use Malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use PHPUnit\Framework\TestCase;
 use SoapClient;
 
@@ -14,18 +14,23 @@ use SoapClient;
  * Unit tests for class MinistryOfFinanceClient
  *
  * Class MinistryOfFinanceClientTest
- * @package malek83\PolishVatPayer\Test\unit\Client\Soap
+ * @package Malek83\PolishVatPayer\Test\unit\Client\Soap
  *
  */
 class MinistryOfFinanceClientTest extends TestCase
 {
-
-    public function testIsInstantiable()
+    /**
+     * @return void
+     */
+    public function testIsInstantiable(): void
     {
         $this->assertInstanceOf(ClientInterface::class, new MinistryOfFinanceClient());
     }
 
-    public function testIsServiceUnavailable()
+    /**
+     * @return void
+     */
+    public function testIsServiceUnavailable(): void
     {
         $this->setExpectedException(PolishVatPayerConnectionException::class);
 
@@ -42,7 +47,10 @@ class MinistryOfFinanceClientTest extends TestCase
         $client->verify('1234567890');
     }
 
-    public function testNotRegisteredAsPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testNotRegisteredAsPolishVatPayer(): void
     {
         $soapClientStub = $this->prepareStubs(
             '4920824345',
@@ -57,7 +65,10 @@ class MinistryOfFinanceClientTest extends TestCase
         $this->assertFalse($result->isValid());
     }
 
-    public function testIsPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testIsPolishVatPayer(): void
     {
         $soapClientStub = $this->prepareStubs(
             '6820792598',
@@ -72,7 +83,10 @@ class MinistryOfFinanceClientTest extends TestCase
         $this->assertTrue($result->isValid());
     }
 
-    public function testIsNotRegisteredAsPolishVatPayer()
+    /**
+     * @return void
+     */
+    public function testIsNotRegisteredAsPolishVatPayer(): void
     {
         $soapClientStub = $this->prepareStubs(
             '4994162136',
@@ -93,9 +107,9 @@ class MinistryOfFinanceClientTest extends TestCase
      * @param string $vatNumber
      * @param string $code
      * @param string $message
-     * @return \PHPUnit_Framework_MockObject_MockObject
+     * @return SoapClient
      */
-    protected function prepareStubs($vatNumber, $code, $message)
+    protected function prepareStubs(string $vatNumber, string $code, string $message): SoapClient
     {
         $responseStub = $this->getMockBuilder(CheckVATNumberResponse::class)
             ->setConstructorArgs([$code, $message])
