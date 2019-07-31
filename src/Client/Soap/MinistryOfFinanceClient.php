@@ -1,26 +1,42 @@
 <?php
 
-namespace malek83\PolishVatPayer\Client\Soap;
+namespace Malek83\PolishVatPayer\Client\Soap;
 
-use malek83\PolishVatPayer\Client\ClientInterface;
-use malek83\PolishVatPayer\Client\Soap\Response\CheckVATNumberResponse;
-use malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
-use malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
+use Malek83\PolishVatPayer\Client\ClientInterface;
+use Malek83\PolishVatPayer\Client\Soap\Response\CheckVATNumberResponse;
+use Malek83\PolishVatPayer\Exception\PolishVatPayerConnectionException;
+use Malek83\PolishVatPayer\Logger\LoggerAwareInterface;
+use Malek83\PolishVatPayer\Result\PolishVatNumberVerificationResult;
 use SoapFault;
+use SoapClient;
 
 /**
  * Client for Ministry of Finance Soap WebService
  *
  * Class MinistryOfFinanceClient
- * @package malek83\PolishVatPayer\Client\Soap
+ * @package Malek83\PolishVatPayer\Client\Soap
  */
 class MinistryOfFinanceClient implements ClientInterface
 {
+    /**
+     * @var string
+     */
+    public const RESPONSE_IS_VAT_PAYER = 'C';
 
-    const RESPONSE_IS_VAT_PAYER = 'C';
-    const RESPONSE_IS_NOT_REGISTERED_AS_VAT_PAYER = 'N';
-    const RESPONSE_IS_NOT_VAT_PAYER = 'Z';
-    const RESPONSE_VAT_NUMBER_INVALID = 'I';
+    /**
+     * @var string
+     */
+    public const RESPONSE_IS_NOT_REGISTERED_AS_VAT_PAYER = 'N';
+
+    /**
+     * @var string
+     */
+    public const RESPONSE_IS_NOT_VAT_PAYER = 'Z';
+
+    /**
+     * @var string
+     */
+    public const RESPONSE_VAT_NUMBER_INVALID = 'I';
 
     /**
      * URL to WSDL
@@ -32,7 +48,7 @@ class MinistryOfFinanceClient implements ClientInterface
     /**
      * SOAP client
      *
-     * @var \SoapClient;
+     * @var SoapClient;
      */
     protected $soapClient = null;
 
@@ -46,9 +62,9 @@ class MinistryOfFinanceClient implements ClientInterface
     /**.
      * @param string $wsdl [optional] Custom URL to WSDL
      * @param array $classMap [optional] Custom Class Map for SoapClient
-     * @param \SoapClient [optional] $soapClient Custom SoapClient Object
+     * @param SoapClient [optional] $soapClient Custom SoapClient Object
      */
-    public function __construct($wsdl = null, array $classMap = null, \SoapClient $soapClient = null)
+    public function __construct(string $wsdl = null, array $classMap = null, SoapClient $soapClient = null)
     {
         if ($wsdl !== null) {
             $this->wsdl = $wsdl;
@@ -66,14 +82,17 @@ class MinistryOfFinanceClient implements ClientInterface
     /*
      * {@inheritDoc}
      */
-    public function verify($vatNumber)
+    public function verify(string $vatNumber)
     {
         try {
             $response = $this->getSoapClient()->SprawdzNIP($vatNumber);
-
             return $this->prepareResult($vatNumber, $response);
         } catch (SoapFault $exception) {
-            throw new PolishVatPayerConnectionException($exception->getMessage(), $exception->getCode(), $exception);
+            throw new PolishVatPayerConnectionException(
+                $exception->getMessage(),
+                $exception->getCode(),
+                $exception
+            );
         }
     }
 
@@ -108,10 +127,10 @@ class MinistryOfFinanceClient implements ClientInterface
      *
      * @return \SoapClient
      */
-    protected function getSoapClient()
+    protected function getSoapClient(): SoapClient
     {
         if ($this->soapClient === null) {
-            $this->soapClient = new \SoapClient($this->wsdl, [
+            $this->soapClient = new SoapClient($this->wsdl, [
                 'classmap' => $this->classMap
             ]);
         }

@@ -1,12 +1,12 @@
 <?php
 
-namespace malek83\PolishVatPayer\Result;
+namespace Malek83\PolishVatPayer\Result;
 
 /**
  * Verification Result object
  *
  * Class PolishVatNumberVerificationResult
- * @package malek83\PolishVatPayer\Result
+ * @package Malek83\PolishVatPayer\Result
  */
 class PolishVatNumberVerificationResult
 {
@@ -32,7 +32,7 @@ class PolishVatNumberVerificationResult
      * @param boolean $isValid Result of verification
      * @param string $message human readable message
      */
-    public function __construct($vatNumber, $isValid, $message)
+    public function __construct(string $vatNumber, bool $isValid, string $message)
     {
         $this->vatNumber = $vatNumber;
         $this->isValid = $isValid;
@@ -42,7 +42,7 @@ class PolishVatNumberVerificationResult
     /**
      * @return string Verified VAT Number
      */
-    public function getVatNumber()
+    public function getVatNumber(): string
     {
         return $this->vatNumber;
     }
@@ -50,7 +50,7 @@ class PolishVatNumberVerificationResult
     /**
      * @return bool Result of verification if given VAT Number is registered as Polish VAT Payer
      */
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->isValid;
     }
@@ -58,7 +58,7 @@ class PolishVatNumberVerificationResult
     /**
      * @return string Human readable message
      */
-    public function getMessage()
+    public function getMessage(): string
     {
         return $this->message;
     }
